@@ -164,9 +164,42 @@ Requires additional O(n) space.
 
 &nbsp; 
 
+## 5.Quick Sort
+분할 정복 알고리즘의 하나로, 평균적으로 매우 빠른 수행 속도를 자랑하는 정렬 방법이다.  
+Merge sort와 달리 quick sort는 리스트를 비균등하게 분할한다.
+
+![quick-sort](https://user-images.githubusercontent.com/42695954/61267554-5fe08b00-a7d3-11e9-8920-b0e64401ba8c.png)
+
+#### How does it work?
+1. 리스트 안에 있는 한 요소를 선택한다. 이렇게 고른 원소를 피벗(pivot) 이라고 한다.
+2. 피벗을 기준으로 피벗보다 작은 요소들은 모두 피벗의 왼쪽으로 옮겨지고 피벗보다 큰 요소들은 모두 피벗의 오른쪽으로 옮겨진다. (피벗을 중심으로 왼쪽: 피벗보다 작은 요소들, 오른쪽: 피벗보다 큰 요소들)
+3. 피벗을 제외한 왼쪽 리스트와 오른쪽 리스트를 다시 정렬한다.
+* 분할된 부분 리스트에 대하여 순환 호출 을 이용하여 정렬을 반복한다.
+* 부분 리스트에서도 다시 피벗을 정하고 피벗을 기준으로 2개의 부분 리스트로 나누는 과정을 반복한다.
+4. 부분 리스트들이 더 이상 분할이 불가능할 때까지 반복한다.
+리스트의 크기가 0이나 1이 될 때까지 반복한다.
+
+
+**'Divide and Conquer' in Quick Sort**  
+* **분할(Divide)**: 입력 배열을 피벗을 기준으로 비균등하게 2개의 부분 배열(피벗을 중심으로 왼쪽: 피벗보다 작은 요소들, 오른쪽: 피벗보다 큰 요소들)로 분할한다.
+* **정복(Conquer)**: 부분 배열을 정렬한다. 부분 배열의 크기가 충분히 작지 않으면 순환 호출 을 이용하여 다시 분할 정복 방법을 적용한다.
+* **결합(Combine)**: 정렬된 부분 배열들을 하나의 배열에 합병한다.
+* 순환 호출이 한번 진행될 때마다 최소한 하나의 원소(피벗)는 최종적으로 위치가 정해지므로, 이 알고리즘은 반드시 끝난다는 것을 보장할 수 있다.
+
+#### Big O
+
+- **Worst Case: O(n log n)**  
+
+![sort-time-complexity-etc1](https://user-images.githubusercontent.com/42695954/61267746-16447000-a7d4-11e9-8388-94605edda8f5.png)
+
+- **Best Case: O(2n)**  
+: 리스트가 계속 불균형하게 나누어지는 경우 (특히, 이미 정렬된 리스트에 대하여 퀵 정렬을 실행하는 경우)
+
+![sort-time-complexity-etc2](https://user-images.githubusercontent.com/42695954/61267817-5e639280-a7d4-11e9-9a7b-68e1b6780c7d.png)
+
+&nbsp; 
+
 **< 추가로 공부할 것 >**
-> - ★Quick Sort★
-> - Divide and Conquer
 > - Dynamic Programming
 
 &nbsp; 
@@ -177,3 +210,4 @@ Requires additional O(n) space.
 
 - [https://zeddios.tistory.com/20](https://zeddios.tistory.com/20)
 - [https://ratsgo.github.io/data%20structure&algorithm/2017/10/19/sort/](https://ratsgo.github.io/data%20structure&algorithm/2017/10/19/sort/)
+- [https://gmlwjd9405.github.io/2018/05/10/algorithm-quick-sort.html](https://gmlwjd9405.github.io/2018/05/10/algorithm-quick-sort.html)
