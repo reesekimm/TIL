@@ -5,6 +5,7 @@
 
 ## Data Structure & Algorithm
 * [Stack / Queue / Linked List](https://github.com/reesekimm/TIL/blob/master/Data_structure_and_algorithm/Stack_Queue_LinkedList.md)
+* [Sorting Algorithms](https://github.com/reesekimm/TIL/blob/master/Data_structure_and_algorithm/sorting_algorithms.md)
 
 ## Computer Science
 * [Client & Server](https://github.com/reesekimm/TIL/blob/master/CS/Client_and_Server.md)
