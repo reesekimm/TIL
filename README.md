@@ -2,8 +2,8 @@
 
 ## Javascript
 
-- [자바스크립트 객체 복사](../Javascript/object-clone.md)
-- [const vs Object.freeze()](../Javascript/const-Object-freeze.md)
+- [자바스크립트 객체 복사](./Javascript/object-clone.md)
+- [const vs Object.freeze()](/Javascript/const-Object-freeze.md)
 - [Ajax](../Javascript/AJAX.md)
 
 ## Data Structure & Algorithm
