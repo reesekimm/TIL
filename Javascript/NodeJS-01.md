@@ -14,8 +14,8 @@ Node.js를 사용하면 자바스크립트로 Server Side Application을 만들�
 
 <img src="https://user-images.githubusercontent.com/42695954/64765253-c3422b80-d57e-11e9-96cd-833b77696a60.PNG" alt="browser" width="500"/>
 
-웹브라우저 위에서 돌아가는 웹사이트 또는 웹어플리케이션을 만들때 ++웹브라우저가 가지고 있는 기능들 중 우리에게 필요한 기능들++(e.g. 제목 표시하기, 링크 넣기, 목록 표시하기 등)++을 HTML이라는 문법에 따라 호출++함으로써 웹어플리케이션을 만든다.
+웹브라우저 위에서 돌아가는 웹사이트 또는 웹어플리케이션을 만들때 **웹브라우저가 가지고 있는 기능들 중 우리에게 필요한 기능들**(e.g. 제목 표시하기, 링크 넣기, 목록 표시하기 등)**을 HTML이라는 문법에 따라 호출**함으로써 웹어플리케이션을 만든다.
 
 <img src="https://user-images.githubusercontent.com/42695954/64765275-ce955700-d57e-11e9-844c-4493464f272e.PNG" alt="nodejs" width="500"/>
 
-Node.js도 같은 원리이다. ++Node.js 런타임이 가지고 있는 여러 기능들 중 우리가 필요한 것들을 javascript라는 언어를 통해서 호출++함으로써 Node.js 어플리케이션을 만들 수 있다.
+Node.js도 같은 원리이다. **Node.js 런타임이 가지고 있는 여러 기능들 중 우리가 필요한 것들을 javascript라는 언어를 통해서 호출**함으로써 Node.js 어플리케이션을 만들 수 있다.
