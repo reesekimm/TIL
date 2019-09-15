@@ -11,6 +11,7 @@
   - ['fs.fileRead()'로 동적인 웹페이지 만들기](/Javascript/NodeJS-03.md)
   - [콘솔 환경에서 입력값 전달하기](/Javascript/NodeJS-04.md)
   - [Not Found 구현하기](/Javascript/NodeJS-05.md)
+  - ['fs.readdir()'로 파일 목록 가져오기](/Javascript/NodeJS-06.md)
 
 ## Data Structure & Algorithm
 
