@@ -51,7 +51,10 @@ npm init
 npm install
 ```
 
-- `package.json`에 기록되어있는 모든 패키지 설치
+- 패키지 설치
+  - 프로젝트 폴더의 `package.json`이 위치한 디렉토리에서 실행해야 함
+- `npm install`
+  - `package.json`에 기록되어있는 모든 패키지 설치
   - `package.json`만 있으면 `npm install`로 모든 패키지를 다시 설치할 수 있음
 - `npm install 패키지@버전`
   - 특정 패키지의 특정한 버전만 설치
@@ -96,7 +99,7 @@ npm uninstall 패키지이름
 npm info 패키지이름
 ```
 
-- 패키지 세부 정보 확인 (package.json의 내용, 의존관계, 설치 가능한 버전정보 등)
+- 패키지 세부 정보 확인 (`package.json`의 내용, 의존관계, 설치 가능한 버전정보 등)
 
 <br />
 
