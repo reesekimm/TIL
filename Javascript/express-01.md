@@ -40,7 +40,8 @@ Node.js의 핵심 모듈인 http와 [Connect](https://github.com/senchalabs/conn
 Express의 작동방식에 따라 서버로 들어오는 각 요청은 정의된 미들웨어와 라우팅에 따라 맨 위에서 시작해 맨 아래까지 처리된다.
 
 > Structure of Express
-> <img src="https://devopedia.org/images/article/157/3224.1551338491.png" alt="middleware" width="500"/>
+
+<img src="https://devopedia.org/images/article/157/3224.1551338491.png" alt="middleware" width="500"/>
 
 1. 쿠키 정보를 파싱하고, 파싱이 완료되면 다음 단계로 이동한다.
 2. URL로부터 매개변수를 파싱하고, 파싱이 완료되면 다음 단계로 이동한다.
