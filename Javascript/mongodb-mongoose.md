@@ -36,7 +36,7 @@ MongoDB는 C++로 작성된 오픈소스로, 문서지향(**Document-Oriented**)
 - [Database](https://docs.mongodb.com/manual/core/databases-and-collections/#databases) <br />
   Database는 Collection들의 물리적인 컨테이너이다. 각 Database는 파일시스템에 여러파일들로 저장된다.
 
-> Document, Collection, Database의 관계는 아래 이미지와 같다. <br /> > ![relationships](https://user-images.githubusercontent.com/42695954/65965279-50e7ab80-e499-11e9-9417-d0d4ee759897.PNG)
+> Document, Collection, Database의 관계는 아래 이미지와 같다. <br /> <img src="https://user-images.githubusercontent.com/42695954/65965279-50e7ab80-e499-11e9-9417-d0d4ee759897.PNG" alt="diagram" width="500">
 
 <br />
 
@@ -197,7 +197,7 @@ const newSchema = new mongoose.Schema({
 
 Model은 Schema에 정의된 데이터 구조대로 Document를 생성하는 생성자(constructor)이다. Model의 instance가 바로 Document다.
 
-![model](https://user-images.githubusercontent.com/42695954/65960261-0fea9980-e48f-11e9-8106-607eb16dc1ed.PNG)
+<img src="https://user-images.githubusercontent.com/42695954/65960261-0fea9980-e48f-11e9-8106-607eb16dc1ed.PNG" alt="model" width="600">
 
 ```js
 // Schema 생성
