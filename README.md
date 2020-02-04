@@ -28,4 +28,4 @@
 
 - [Client & Server](/CS/Client_and_Server.md)
 - [Http](/CS/HTTP.md)
-- [브라우저 동작 방식](/CS/browser-rendering.md)
+- [브라우저 렌더링 프로세스](/CS/browser-rendering.md)
