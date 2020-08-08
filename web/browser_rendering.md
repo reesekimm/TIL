@@ -1,26 +1,30 @@
-1. 임의의 웹사이트를 선정한다.
+## 브라우저의 동작 원리
 
-[브런치](https://brunch.co.kr/)
+대부분의 프로그래밍 언어는 운영체제(Operating System, OS) 위에서 실행되지만 웹 애플리케이션의 자바스크립트는 브라우저에서 HTML, CSS와 함께 실행된다. 따라서 브라우저 환경을 고려할 때 보다 효율적인 자바스크립트 프로그래밍이 가능하다.
 
-2. HTML안에 js, css의 위치는 어디에 위치했는가? 왜 그랬을까?
+브라우저의 핵심 기능은 사용자가 참조하고자 하는 웹페이지를 서버에 요청(Request)하고 서버의 응답(Response)을 받아 브라우저에 표시하는 것이다. 브라우저는 서버로부터 HTML, CSS, Javascript, 이미지 파일 등을 응답받는다. HTML, CSS 파일은 렌더링 엔진의 HTML 파서와 CSS 파서에 의해 파싱(Parsing)되어 DOM, CSSOM 트리로 변환되고 렌더 트리로 결합된다. 이렇게 생성된 렌더 트리를 기반으로 브라우저는 웹페이지를 표시한다.
+
+> [출처](https://poiemaweb.com/js-browser)
 
 ![How browser works](https://i.postimg.cc/wBn5vTxK/image.png)
 
+## 브라우저의 렌더링 프로세스
+
 ![DOM and CSSOM are combined to create the Render Tree](https://i.postimg.cc/Y9cSS803/image.png)
 
-- css: `<head>` 태그 내부에 위치
+- css: HTML `<head>` 태그 내부에 위치
 
 렌더 트리를 구성하기 위해서는 DOM 트리와 CSSOM 트리가 필요하다. DOM 트리는 파싱 중에 태그를 발견할 때마다 순차적으로 구성할 수 있지만 CSSOM 트리는 CSS를 모두 해석해야 구성할 수 있다. 즉, CSSOM 트리가 구성되지 않으면 렌더 트리를 만들지 못하고 렌더링이 차단된다. 이러한 이유로 CSS는 렌더링 차단 리소스라고 하며, 렌더링이 차단되지 않도록 CSS는 항상 HTML 문서 최상단(`<head>`)에 배치한다.
 
-- js: `<body>`의 최하단에 위치
+- js: HTML `<body>`의 최하단에 위치
 
 script 태그의 위치를 `<body>` 태그 내부의 최하단에 위치시키는 이유는 다음과 같은 특징들 때문이다.
 
-**(1) 브라우저는 자바스크립트를 동기적으로 처리한다.**
+### 1. 브라우저는 자바스크립트를 동기적으로 처리한다.
 
 브라우저의 렌더링 엔진(HTML 파서)은 script 태그를 만나면 DOM 생성을 멈추고 자바스크립트 런타임에게 제어 권한을 넘긴다. 제어 권한을 넘겨받은 자바스크립트 런타임은 script 태그 내의 자바스크립트 코드 또는 script 태그의 src attribute에 정의된 자바스크립트 파일을 로드하고 파싱하여 실행한다. 자바스크립트의 실행이 완료되면 다시 렌더링 엔진에게 제어 권한을 넘기고 DOM 생성을 중지했던 시점부터 다시 DOM 생성을 시작한다.<br />이렇게 script 태그를 만날 때마다 DOM 생성을 멈추는 Blocking이 발생하기 때문에 script 태그가 head에 있거나 body의 중간에 위치할 경우 DOM 생성을 지연시켜서 페이지 로딩 시간이 길어질 수 있다.
 
-**(2) 자바스크립트는 브라우저가 script 태그를 만나기 전까지 생성해놓은 DOM에만 접근할 수 있다.**
+### 2. 자바스크립트는 브라우저가 script 태그를 만나기 전까지 생성해놓은 DOM에만 접근할 수 있다.
 
 자바스크립트는 DOM 트리와 CSSOM 트리를 동적으로 변경할 수 있다. 하지만 자바스크립트는 브라우저가 이미 만들어놓은 DOM에만 접근할 수 있기 때문에 만약 DOM이 완성되지 않은 상태에서 자바스크립트가 DOM을 조작한다면 에러가 발생할 수 있다.
 
@@ -30,7 +34,7 @@ script 태그의 위치를 `<body>` 태그 내부의 최하단에 위치시키�
 
 <br />
 
-3. 화면을 표시하기 위해 어떤 파일들이 다운로드 되는가?
+## 화면을 표시하기 위해 어떤 파일들이 다운로드 되는가?
 
 - HTML 파일 (Type: document)
 - CSS 파일 (Type: stylesheet)
@@ -41,19 +45,15 @@ script 태그의 위치를 `<body>` 태그 내부의 최하단에 위치시키�
 
 <br />
 
-4. 특정 자원의 Request Headers 와 Response Headers의 내용을 분석. (네트워크 탭 활용)
-
-<br />
-
-5. 화면에 보여지기 시작하는 시간은 언제인가?
+## 화면에 보여지기 시작하는 시간은 언제인가?
 
 <img src="https://i.postimg.cc/W4M8GqNS/2020-02-03-17-26-56.png" alt="First Paint" width="500">
 
-**FP(First Paint)**는 흰 화면에서 화면에 무언가가 처음으로 그려지기 시작하는 시점을 말한다. 개발자 도구의 Performance 탭에서 테스트시 8.61초가 소요되었다.
+`FP(First Paint)`는 흰 화면에서 화면에 무언가가 처음으로 그려지기 시작하는 시점을 말한다. 개발자 도구의 Performance 탭에서 테스트시 8.61초가 소요되었다.
 
 <br />
 
-6. DOMContentLoaded라는 이벤트는 언제 발생하는가? load랑은 어떤 차이점이 있는가?
+## DOMContentLoaded라는 이벤트는 언제 발생하는가? load랑은 어떤 차이점이 있는가?
 
 <img src="https://i.postimg.cc/XYLCzR2C/image.png" alt="Time stamps" width="400">
 
@@ -69,7 +69,7 @@ script 태그의 위치를 `<body>` 태그 내부의 최하단에 위치시키�
 
 <br />
 
-7. HTML 파일 응답 받은 이후부터, 모니터화면에 보이기까지의 과정을 설명하고, 이를 암기한다.
+## HTML 파일 응답 받은 이후부터, 모니터화면에 보이기까지의 과정
 
 ![Loading stages of browser](https://i.postimg.cc/Z5qwVzZW/image.png)
 
