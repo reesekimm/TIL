@@ -9,6 +9,10 @@
 
 - [정적 타입 언어 & 동적 타입 언어](/programming/static_dynamic.md)
 
+## React
+
+- [클라이언트 사이드 렌더링 & 서버 사이드 렌더링](/react/csr_ssr.md)
+
 ## Web
 
 - [Ajax](/web/ajax.md)
