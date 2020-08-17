@@ -5,6 +5,10 @@
 - [자바스크립트 객체 복사](/javascript/object_clone.md)
 - [const vs Object.freeze()](/javascript/const_vs_freeze.md)
 
+## Typescript
+
+- [인터페이스 vs 추상 클래스](/typescript/interface_abstract_class.md)
+
 ## Programming
 
 - [정적 타입 언어 & 동적 타입 언어](/programming/static_dynamic.md)
