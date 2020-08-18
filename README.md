@@ -4,6 +4,7 @@
 
 - [자바스크립트 객체 복사](/javascript/object_clone.md)
 - [const vs Object.freeze()](/javascript/const_vs_freeze.md)
+- [Symbols](/javascript/symbols.md)
 
 ## Typescript
 
