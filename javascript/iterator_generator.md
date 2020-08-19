@@ -167,32 +167,26 @@ for (let element of arr) {
 
 ### well-formed iterable
 
-iterator 이면서 iterable인 객체를 well-formed iterable 이라고 한다.
+**iterator 이면서 iterable인 객체**를 well-formed iterable 이라고 한다.
 
 > well-formed iterable이 아닌 경우
 
 ```js
-const arr = [1, 2, 3, 4, 5];
-
-arr[Symbol.iterator] = function () {
-  let nextValue = 10;
-  return {
-    next: function () {
-      nextValue++;
-      return {
-        value: nextValue,
-        done: nextValue > 15 ? true : false,
-      };
-    },
-  };
+const iterable = {
+  [Symbol.iterator]() {
+    let i = 3;
+    return {
+      next() {
+        return i === 0 ? { done: true } : { value: i--, done: false };
+      },
+      [Symbol.iterator]() {
+        return this;
+      },
+    };
+  },
 };
 
-const iterator = arr[Symbol.iterator]();
-
-iterator.next();
-iterator.next();
-
-for (let element of iterator) {
+for (let element of iterable) {
   console.log(element);
 }
 ```
@@ -200,42 +194,74 @@ for (let element of iterator) {
 > 출력결과
 
 ```
-Error: iterator is not iterable
+3
+2
+1
 ```
 
-`iterator`가 iterabl이 아니라는 에러 메시지와 함께 `for...of`로 순회를 할 수가 없다.
+이터러블 객체를 만들어서 `for...of`문으로 순회를 했더니 콘솔에 숫자들이 정상적으로 출력된다.  
+하지만 이터레이터를 순회하려고 하면 다음과 같이 에러가 발생한다.
+
+```js
+const iterable = {
+  [Symbol.iterator]() {
+    let i = 3;
+    return {
+      next() {
+        return i === 0 ? { done: true } : { value: i--, done: false };
+      },
+    };
+  },
+};
+
+const anotherIterable = iterable[Symbol.iterator]();
+
+anotherIterable.next();
+anotherIterable.next();
+
+for (let element of anotherIterable) {
+  console.log(element);
+}
+```
+
+> 출력결과
+
+```
+Error: iterator is not iterable --- Chrom devTools console
+TypeError: iterator[Symbol.iterator] is not a function --- CodeSandbox
+```
+
+Chrome console에서는 `iterator`가 iterable이 아니라는 에러가 발생하고 codeSandbox에서는 보다 명확하게 `iterator[Symbol.iterator]`가 함수가 아니라는 에러가 발생한다.  
+둘은 결국 같은 말인데, 현재 `iterator`에는 `[Symbol.iterator]()` 메서드가 존재하지 않아서 이터러블하지 않기 때문에 생긴 에러다.  
+이터러블하지 않으니 당연히 `next()` 메서드를 호출할수도 없고 `for...of`로 순회를 할 수도 없다.
 
 <br />
 
 > well-formed iterable로 리팩토링
 
 ```js
-const arr = [1, 2, 3, 4, 5];
-
-arr[Symbol.iterator] = function () {
-  let nextValue = 10;
-  return {
-    next: function () {
-      nextValue++;
-      return {
-        value: nextValue,
-        done: nextValue > 15 ? true : false,
-      };
-    },
-    [Symbol.iterator]() {
-      return this;
-    },
-  };
+const iterable = {
+  [Symbol.iterator]() {
+    let i = 3;
+    return {
+      next() {
+        return i === 0 ? { done: true } : { value: i--, done: false };
+      },
+      [Symbol.iterator]() {
+        return this;
+      },
+    };
+  },
 };
 
-const iterator = arr[Symbol.iterator]();
+const anotherIterable = iterable[Symbol.iterator]();
 
-console.log(iterator === iterator[Symbol.iterator]()); // true
+console.log(anotherIterable === anotherIterable[Symbol.iterator]()); // true
 
-iterator.next();
-iterator.next();
+anotherIterable.next();
+anotherIterable.next();
 
-for (let element of iterator) {
+for (let element of anotherIterable) {
   console.log(element);
 }
 ```
@@ -244,12 +270,34 @@ for (let element of iterator) {
 
 ```
 true
-13
-14
-15
+1
 ```
 
-web API에 구현된 iterable은 대부분 well-formed iterable이다.
+iterator(=`anotherIterable`)의 `[Symbol.iterator]()` 메서드가 자기자신을 리턴하게되면 변수 `i`의 값을 참조할 수 있는 상태를 유지할 수 있다.  
+자기 자신의 상태를 계속해서 기억할 수 있는 well-formed iterable인 셈이다.
+
+```js
+let i = 3;
+
+// anotherIterable
+{
+  next() {
+    return i === 0
+      ? { done: true }
+      : { value: i--, done: false };
+  },
+  [Symbol.iterator]() {
+    return this;
+  },
+}
+```
+
+`anotherIterable`은 well-formed iterable이기 때문에 `next()`를 두 번 호출한 이후의 `i`의 값을 알 수 있고 결과적으로 `for...of`로 순회했을때 `1`만 출력된 것이다.
+
+<br />
+
+web API에 구현된 iterable은 대부분 well-formed iterable이다.  
+`document.querySelectorAll()`이 반환하는 NodeList를 `for...of`로 순회할 수 있는 것 역시 NodeList가 well-formed iterable이기 때문에 가능한 것!
 
 - [well-formed 이터러블의 장점](https://underbleu.com/Functional-programming/well-formed/)
 
