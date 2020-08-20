@@ -305,7 +305,7 @@ web API에 구현된 iterable은 대부분 well-formed iterable이다.
 
 ## 제너레이터 (generator)
 
-제너레이터는 이터레이터를 사용해서 자신의 실행을 제어하는 함수이다.
+제너레이터함수는 이터레이터를 사용해서 자신의 실행을 제어하는 함수이다.
 
 ```js
 function* generator {
@@ -316,9 +316,9 @@ function* generator {
 // `*` : 애스터리스크
 ```
 
-- 제너레이터를 호출하면 즉시 실행되지 않고 이터레이터를 리턴한 뒤 대기한다. 제너레이터 함수 바디는 호출자가 해당 이터레이터의 `next()` 메서드를 호출함에따라 실행된다.
-- 제너레이터는 `yield` 키워드가 등장하면 호출자에게 제어권을 넘긴다.
-- 호출자 역시 `next(value)`와 같이 제너레이터에 어떠한 값을 넘길 수 있다.
+- 제너레이터를 호출하면 즉시 실행되지 않고 [제너레이터](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator)를 리턴한 뒤 대기한다. 제너레이터함수의 바디는 호출자가 해당 제너레이터의 `next()` 메서드를 호출함에따라 실행된다.
+- 제너레이터함수는 `yield` 키워드가 등장하면 호출자에게 제어권을 넘긴다.
+- 호출자 역시 `next(value)`와 같이 제너레이터함수에 어떠한 값을 넘길 수 있다.
 
 <br />
 
@@ -347,24 +347,49 @@ What is your name?
 What is your favorite color?
 ```
 
-1. 제너레이터는 이터레이터를 리턴하고 일시 정지한 상태로 기다린다.
-2. 호출자는 `next()`를 호출하면서 제너레이터에 `undefined`를 넘긴다. `(a)`행에 있는 `yield`표현식이 리턴하는 값 표현식(값)인 'What is your name?'을 호출자에게 넘기고 일시정지 한다.
+1. 제너레이터함수는 제너레이터를 리턴하고 일시 정지한 상태로 기다린다.
+2. 호출자는 `next()`를 호출하면서 제너레이터함수에 `undefined`를 넘긴다.  
+   그러면 제너레이터함수는 `(a)`행에 있는 `yield`표현식이 리턴하는 값 표현식(값)인 'What is your name?'을 호출자에게 넘기고 일시정지 한다.
    > - yield 표현식의 값은 다음에 호출될 `next()`의 매개변수이다.
-   > - 이터레이터dml `next()`가 리턴하는 객체는 `value`, `done` 두 개의 프로퍼티를 가진다.
+   > - 제너레이터의 `next()`가 리턴하는 객체는 `value`, `done` 두 개의 프로퍼티를 가진다.
    >   - `value` : `yield` 표현식이 반환'할' 값. `next()`의 인자.
-   >   - `done` (boolean) : 제너레이터 함수 바디에 있는 모든 `yield` 표현식의 실행 여부를 표시하는 값
-3. 호출자가 'Kyle'이라는 값을 제너레이터에 넘기면 해당 값은 `yield` 표현식의 반환값이 되고 `name` 변수가 이 값을 가리키게 된다. --- **`(a)`행 resolved**  
-   제너레이터는 다시 호출자에게 'What is your favorite color?'를 넘긴 뒤 일시정지 한다.
-4. 호출자가 'yellow'라는 값을 제너레이터에 넘긴다. 해당 값은 `yield` 표현식의 반환값이 되고 `color` 변수는 이 값을 가리키게 된다. --- **`(b)`행 resolved**  
-   제너레이터는 그 다음 `(c)`행에서 `return`문을 만난다. 'Kyle's favorite color is yellow!'를 리턴하고 멈춘다. --- **`(c)행 resolved**
+   >   - `done` (boolean) : 제너레이터함수 바디에 있는 모든 `yield` 표현식의 실행 여부를 표시하는 값
+3. 호출자가 'Kyle'이라는 값을 제너레이터함수에 넘기면 해당 값은 `yield` 표현식의 반환값이 되고 `name` 변수가 이 값을 가리키게 된다. --- **`(a)`행 resolved**  
+   제너레이터함수는 다시 호출자에게 'What is your favorite color?'를 넘긴 뒤 일시정지 한다.
+4. 호출자가 'yellow'라는 값을 제너레이터함수에 넘긴다. 해당 값은 `yield` 표현식의 반환값이 되고 `color` 변수는 이 값을 가리키게 된다. --- **`(b)`행 resolved**  
+   제너레이터함수는 그 다음 `(c)`행에서 `return`문을 만난다. 'Kyle's favorite color is yellow!'를 리턴하고 멈춘다. --- **`(c)행 resolved**
    > - `return`문을 사용하면 위치와 관계 없이 `done`은 `true`가 되고 `value`는 `return`문이 리턴하는 값이 된다.
-   > - 반대로 `yield`의 경우 위치와 관계 없이 제너레이터의 실행을 종료시키지 않는다. (설령 함수 바디의 맨 마지막에 위치하더라도)
-5. `for...of`문으로 이터레이터를 순회하면 `return`문이 리턴하는 값은 출력되지 않는다. `done`이 `true`이면 `value` 프로퍼티가 무시되기 때문!
+   > - 반대로 `yield`의 경우 위치와 관계 없이 제너레이터함수의 실행을 종료시키지 않는다. (설령 함수 바디의 맨 마지막에 위치하더라도)
+5. `for...of`문으로 제너레이터를 순회하면 `return`문이 리턴하는 값은 출력되지 않는다. `done`이 `true`이면 `value` 프로퍼티가 무시되기 때문!
 
 <br />
 
-- 제너레이터가 리턴하는 이터레이터는 well-formed iterable이다.
-- 제너레이터로 어떠한 값/상태를 이터러블하게 만들고 순회/제어 할 수 있다는 점에서 유의미하다.
+---
+
+<br />
+
+- 제너레이터함수가 리턴하는 제너레이터는 iterator protocol과 itarable protocol을 따른다.
+
+  ```js
+  /* 제너레이터는 iterator protocol을 따른다. */
+
+  typeof generator.next; // "function"
+  generator.next(); // {done: boolean, value: any}
+  ```
+
+  ```js
+  /* 제너레이터는 itarable protocol을 따른다. */
+
+  typeof generator[Symbol.iterator]; // "function"
+  const iterator = generator[Symbol.iterator]();
+  typeof iterator.next(); // {done: boolean, value: any}
+  ```
+
+- 제너레이터는 이터러블이자 이터레이터이다. 즉, **well-formed iterable**이다.
+  ```js
+  generator === generator[Symbol.iterator](); // true
+  ```
+- 제너레이터함수로 어떠한 값/상태를 이터러블하게 만들고 순회/제어 할 수 있다는 점에서 유의미하다.
 
 <br />
 
@@ -376,3 +401,4 @@ Reference
 - [Iterators and generators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators)
 - [function\*](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*)
 - 러닝 자바스크립트 (한빛미디어)
+- [Redux-Saga: 제너레이터와 이펙트](https://meetup.toast.com/posts/140)
