@@ -23,6 +23,7 @@
 
 - [Ajax](/web/ajax.md)
 - [브라우저 렌더링 프로세스](/web/browser_rendering.md)
+- [쿠키 & 세션](/web/cookie_session.md)
 
 ## Data Structure & Algorithm
 
